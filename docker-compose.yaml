@@ -4,7 +4,7 @@ services:
 
   db:
     image: postgres
-    restart: always
+    restart: on-failure
     shm_size: 128mb
     environment:
       POSTGRES_PASSWORD: password
@@ -13,7 +13,7 @@ services:
 
   adminer:
     image: adminer
-    restart: always
+    restart: on-failure
     ports:
       - 8080:8080
 
