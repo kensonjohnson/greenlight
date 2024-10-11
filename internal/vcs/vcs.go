@@ -6,6 +6,7 @@ import (
 )
 
 func Version() string {
+	var time string
 	var revision string
 	var modified bool
 
@@ -13,6 +14,8 @@ func Version() string {
 	if ok {
 		for _, setting := range buildInfo.Settings {
 			switch setting.Key {
+			case "vcs.time":
+				time = setting.Value
 			case "vcs.revision":
 				revision = setting.Value
 			case "vcs.modified":
@@ -24,8 +27,8 @@ func Version() string {
 	}
 
 	if modified {
-		return fmt.Sprintf("%s-dirty", revision)
+		return fmt.Sprintf("%s-%s-dirty", time, revision)
 	}
 
-	return revision
+	return fmt.Sprintf("%s-%s", time, revision)
 }
